@@ -1,7 +1,6 @@
 CREATE DATABASE prod;
 USE PROD;
 
-
 CREATE TABLE users
 (
     userId   INTEGER      NOT NULL PRIMARY KEY,
