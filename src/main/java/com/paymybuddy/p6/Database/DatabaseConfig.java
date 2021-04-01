@@ -9,27 +9,27 @@ import java.util.Properties;
 
 @Configuration
 public class DatabaseConfig {
-    private static final Logger logger = LogManager.getLogger("DataBaseConfig");
-    private static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
-    private static final String databaseUrl = "jdbc:mysql://localhost:3306/prod?serverTimezone=Europe/Paris";
-    private static final String username = "root";
-    private static final String password = "rootroot";
-    private static Connection connection;
-    private static Properties properties;
+    private final Logger logger = LogManager.getLogger("DataBaseConfig");
+    private Connection connection;
+    private Properties properties;
 
-    private static Properties getProperties() {
+    private Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
+            String username = "root";
             properties.setProperty("user", username);
+            String password = "rootroot";
             properties.setProperty("password", password);
         }
         return properties;
     }
 
-    public static Connection connect() {
+    public Connection connect() {
         if (connection == null) {
             try {
+                String databaseDriver = "com.mysql.cj.jdbc.Driver";
                 Class.forName(databaseDriver);
+                String databaseUrl = "jdbc:mysql://localhost:3306/prod?serverTimezone=Europe/Paris";
                 connection = DriverManager.getConnection(databaseUrl, getProperties());
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
@@ -38,10 +38,11 @@ public class DatabaseConfig {
         return connection;
     }
 
-    public static void disconnect(Connection connection) {
+    public void disconnect(Connection connection) {
         if(connection != null) {
             try {
                 connection.close();
+                logger.info("Closing connection");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

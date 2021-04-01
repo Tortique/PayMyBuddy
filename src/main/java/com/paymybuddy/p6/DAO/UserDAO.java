@@ -12,13 +12,13 @@ import java.sql.SQLException;
 
 @Repository
 public class UserDAO {
-    public static DatabaseConfig databaseConfig;
+    public DatabaseConfig databaseConfig;
 
     public UserDAO(DatabaseConfig config) {
         databaseConfig = config;
     }
 
-    public static void saveUser(User user) {
+    public void saveUser(User user) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
@@ -36,7 +36,7 @@ public class UserDAO {
         }
     }
 
-    public static User getEmail(String email) {
+    public User getEmail(String email) {
         Connection connection = null;
         User user = new User();
         try {
@@ -44,7 +44,7 @@ public class UserDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetEmail);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return user;
             }
             databaseConfig.closeResultSet(resultSet);
@@ -52,8 +52,31 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            databaseConfig.disconnect(connection);
         }
         return null;
+    }
+
+    public User getUser(String email) {
+        Connection connection = null;
+        User user = null;
+        try {
+            connection = databaseConfig.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetUser);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setEmail(email);
+                user.setId(resultSet.getInt(1));
+                user.setName(resultSet.getString(3));
+            }
+            databaseConfig.closeResultSet(resultSet);
+            databaseConfig.closePreparedStatement(preparedStatement);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+        }
+        return user;
     }
 }
