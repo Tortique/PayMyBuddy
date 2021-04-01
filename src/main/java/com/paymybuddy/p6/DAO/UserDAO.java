@@ -12,13 +12,13 @@ import java.sql.SQLException;
 
 @Repository
 public class UserDAO {
-    public static DatabaseConfig databaseConfig;
+    public DatabaseConfig databaseConfig;
 
     public UserDAO(DatabaseConfig config) {
         databaseConfig = config;
     }
 
-    public static void saveUser(User user) {
+    public void saveUser(User user) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
@@ -36,24 +36,26 @@ public class UserDAO {
         }
     }
 
-    public static User getEmail(String email) {
+    public User getUser(String email) {
         Connection connection = null;
-        User user = new User();
+        User user = null;
         try {
             connection = databaseConfig.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetEmail);
+            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetUser);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                return user;
+            if (resultSet.next()) {
+                user = new User();
+                user.setEmail(email);
+                user.setId(resultSet.getInt(1));
+                user.setName(resultSet.getString(3));
             }
             databaseConfig.closeResultSet(resultSet);
             databaseConfig.closePreparedStatement(preparedStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            databaseConfig.disconnect(connection);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
+        return user;
     }
 }

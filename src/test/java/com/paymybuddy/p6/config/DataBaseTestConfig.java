@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataBaseTestConfig extends DatabaseConfig {
-    private static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
-    private static final String databaseUrl = "jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Paris";
-    private static final String username = "root";
-    private static final String password = "rootroot";
-    private static Connection connection;
-    private static Properties properties;
+    private final String databaseDriver = "com.mysql.cj.jdbc.Driver";
+    private final String databaseUrl = "jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Paris";
+    private final String username = "root";
+    private final String password = "rootroot";
+    private Connection connection;
+    private Properties properties;
 
-    private static Properties getProperties() {
+    private Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
             properties.setProperty("user", username);
@@ -24,7 +24,7 @@ public class DataBaseTestConfig extends DatabaseConfig {
         return properties;
     }
 
-    public static Connection connect() {
+    public Connection connect() {
         if (connection == null) {
             try {
                 Class.forName(databaseDriver);

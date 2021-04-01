@@ -4,7 +4,7 @@ USE PROD;
 CREATE TABLE users
 (
     userId   INTEGER      NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    email    VARCHAR(100) NOT NULL,
+    email    VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     name     VARCHAR(30)  NOT NULL,
     enabled  TINYINT(4) DEFAULT NULL
