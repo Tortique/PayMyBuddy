@@ -3,14 +3,21 @@ package com.paymybuddy.p6.DAO;
 import com.paymybuddy.p6.Database.Constants;
 import com.paymybuddy.p6.Database.DatabaseConfig;
 import com.paymybuddy.p6.Model.Friend;
+<<<<<<< HEAD
 import com.paymybuddy.p6.Model.User;
+=======
+>>>>>>> origin/Friends
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+=======
+import java.sql.SQLException;
+>>>>>>> origin/Friends
 
 @Repository
 public class FriendsDAO {
@@ -29,6 +36,7 @@ public class FriendsDAO {
             preparedStatement.setInt(1, friend.getUserId());
             preparedStatement.setInt(2, friend.getFriendId());
             preparedStatement.execute();
+<<<<<<< HEAD
             databaseConfig.closePreparedStatement(preparedStatement);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -58,4 +66,11 @@ public class FriendsDAO {
         }
         return friendsList;
     }
+=======
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+        }
+    }
+>>>>>>> origin/Friends
 }
