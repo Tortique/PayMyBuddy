@@ -7,12 +7,8 @@ public class Friend {
     private int userId;
     private int friendId;
 
-<<<<<<< HEAD
     public Friend() {
     }
-=======
-    public Friend() {}
->>>>>>> origin/Friends
 
     public Friend(int userId, int friendId) {
         this.userId = userId;
