@@ -36,7 +36,7 @@ public class MainController {
         User userLogged = userDAO.getUser(principal.getName());
         String name = userLogged.getName();
         model.addAttribute("name", name);
-        String email = new String();
+        String email = "";
         model.addAttribute("email", email);
         ArrayList<User> friendList = friendsDAO.getFriendsList(userLogged.getId());
         modelAndView.addObject("listOfFriends", friendList);
@@ -45,7 +45,7 @@ public class MainController {
     }
 
     @PostMapping("/home")
-    public ModelAndView addFriend(@ModelAttribute("email") String email, Principal principal) {
+    public ModelAndView addFriend(@ModelAttribute("email") String email, Principal principal,Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User userLogged = userDAO.getUser(principal.getName());
         User user = userDAO.getUser(email);
@@ -53,7 +53,7 @@ public class MainController {
         friend.setUserId(userLogged.getId());
         friend.setFriendId(user.getId());
         friendsDAO.saveFriend(friend);
-        modelAndView.addObject("message", "Friend add successfully ! ");
+        model.addAttribute("message", "Friend add successfully ! ");
         modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }

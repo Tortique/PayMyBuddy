@@ -8,4 +8,9 @@ public class Constants {
     public static final String GetFriends = "select distinct email,name from users u inner join friends f on f.friendId = u.userId where f.userId=? " +
             "union " +
             "select distinct email,name from users u inner join friends f on f.userId = u.userId where f.friendId=?";
+
+    public static final String SaveAccount = "insert into account(accountId,balance) values (?,?)";
+    public static final String GetAccount = "select * from account where accountId=?";
+    public static final String GetAccountBalance = "select balance from account where accountId=?";
+    public static final String UpdateAccount = "update account set balance=? where accountId=?";
 }

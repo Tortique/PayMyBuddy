@@ -12,7 +12,7 @@
 <nav>
     <ul>
         <li><a href="<c:url value="/home"/>">Home</a></li>
-        <li><a href="#">Transfer</a></li>
+        <li><a href="<c:url value="/transfer"/>">Transfer</a></li>
         <li><a href="<c:url value="/profile"/>">Profile</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="<c:url value="/logout"/>">Logout</a></li>
@@ -29,7 +29,7 @@
         <form th:action="/home/addFriend" modelattribute="email" method="post">
             <div>
                 <div>
-                    <b th:text="${message}"> !</b>
+                    <b>${message} !</b>
                 </div>
                 <label> E-mail: </label>
                 <div>
