@@ -18,11 +18,10 @@
                 <label>E-mail: </label>
                 <div>
                     <label>
-                        <input type="email" name="email" class="form-control" required />
+                        <input type="email" name="email" class="form-control" required/>
                     </label>
                 </div>
             </div>
-
             <div>
                 <label>Password: </label>
                 <div>
@@ -32,7 +31,6 @@
                     </label>
                 </div>
             </div>
-
             <div>
                 <label>Full Name: </label>
                 <div>

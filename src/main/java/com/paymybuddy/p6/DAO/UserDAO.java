@@ -28,8 +28,7 @@ public class UserDAO {
             preparedStatement.setString(3, user.getName());
             preparedStatement.setInt(4, 1);
             preparedStatement.execute();
-        } catch (
-                SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             databaseConfig.disconnect(connection);
@@ -52,7 +51,6 @@ public class UserDAO {
             }
             databaseConfig.closeResultSet(resultSet);
             databaseConfig.closePreparedStatement(preparedStatement);
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

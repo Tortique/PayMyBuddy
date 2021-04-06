@@ -21,13 +21,20 @@
 <section>
     <div>
         <h1>Send Money</h1>
-        <button type="button">Add Connection</button>
+        <a href="<c:url value="/home"/>">
+        <button type="button" >Add Connection</button>
+        </a>
         <form th:action="/transfer/sendMoney" modelattribute="friend" method="post">
             <div>
                 <div>
                     <label>
                         <select>
-                            <option value="friend">friend</option>
+                            <c:forEach items="${FriendsList}" var="Friend">
+                                <option value="${Friend}">
+                                    ${Friend.name}
+                                    ${Friend.email}
+                                </option>
+                            </c:forEach>
                         </select>
                     </label>
                 </div>

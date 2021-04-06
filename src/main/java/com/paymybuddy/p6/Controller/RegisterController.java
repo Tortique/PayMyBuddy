@@ -28,11 +28,11 @@ public class RegisterController {
     @PostMapping("/register")
     public ModelAndView registerProcess(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            userDAO.saveUser(user);
-            modelAndView.setViewName("/registerSuccess");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userDAO.saveUser(user);
+        modelAndView.setViewName("/registerSuccess");
         return modelAndView;
     }
 }
