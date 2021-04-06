@@ -1,19 +1,21 @@
 package com.paymybuddy.p6.config;
 
+import com.paymybuddy.p6.Database.DatabaseConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DataBaseTestConfig {
+public class DataBaseTestConfig extends DatabaseConfig {
     private static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
-    private static final String databaseUrl = "jdbc:mysql://localhost:3306/test";
+    private static final String databaseUrl = "jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Paris";
     private static final String username = "root";
     private static final String password = "rootroot";
-    private Connection connection;
-    private Properties properties;
+    private static Connection connection;
+    private static Properties properties;
 
-    private Properties getProperties() {
+    private static Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
             properties.setProperty("user", username);
@@ -22,7 +24,7 @@ public class DataBaseTestConfig {
         return properties;
     }
 
-    public Connection connect() {
+    public static Connection connect() {
         if (connection == null) {
             try {
                 Class.forName(databaseDriver);

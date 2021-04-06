@@ -2,20 +2,22 @@ package com.paymybuddy.p6.Database;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Configuration;
 
 import java.sql.*;
 import java.util.Properties;
 
+@Configuration
 public class DatabaseConfig {
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
     private static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
     private static final String databaseUrl = "jdbc:mysql://localhost:3306/prod?serverTimezone=Europe/Paris";
     private static final String username = "root";
     private static final String password = "rootroot";
-    private Connection connection;
-    private Properties properties;
+    private static Connection connection;
+    private static Properties properties;
 
-    private Properties getProperties() {
+    private static Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
             properties.setProperty("user", username);
@@ -24,7 +26,7 @@ public class DatabaseConfig {
         return properties;
     }
 
-    public Connection connect() {
+    public static Connection connect() {
         if (connection == null) {
             try {
                 Class.forName(databaseDriver);
@@ -36,7 +38,7 @@ public class DatabaseConfig {
         return connection;
     }
 
-    public void disconnect(Connection connection) {
+    public static void disconnect(Connection connection) {
         if(connection != null) {
             try {
                 connection.close();

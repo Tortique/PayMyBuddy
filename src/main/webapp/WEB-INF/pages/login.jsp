@@ -19,7 +19,7 @@
         </p>
         <p>
             <input type="submit" value="Login"/>
-            <input type="hidden" name="_csrf" value="8ec12704-5ab6-4f0c-a758-2fc36f2c9368"/>
+            <input type="hidden" name="_csrf" value=""/>
         </p>
     </form>
 </div>
