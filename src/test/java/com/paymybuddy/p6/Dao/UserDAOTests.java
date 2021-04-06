@@ -1,6 +1,5 @@
 package com.paymybuddy.p6.Dao;
 
-import com.paymybuddy.p6.Controller.LoginController;
 import com.paymybuddy.p6.DAO.UserDAO;
 import com.paymybuddy.p6.Model.User;
 import com.paymybuddy.p6.config.DataBasePreparing;
@@ -13,16 +12,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class UserDAOTests {
 
-    private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-    private static DataBasePreparing dataBasePreparing;
-    private static UserDAO userDAO;
-    private static LoginController loginController;
+    private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private DataBasePreparing dataBasePreparing;
+    private UserDAO userDAO;
 
     @BeforeAll
-    private static void setUp() {
+    public void setUp() {
         userDAO = new UserDAO(dataBaseTestConfig);
         dataBasePreparing = new DataBasePreparing();
-        loginController = new LoginController();
     }
 
     @Test
