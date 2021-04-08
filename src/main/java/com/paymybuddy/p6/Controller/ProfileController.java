@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.security.Principal;
 
 import static java.lang.Integer.parseInt;
@@ -30,7 +33,7 @@ public class ProfileController {
     public ModelAndView profile(Model model, Principal principal) {
         ModelAndView modelAndView = new ModelAndView();
         User userLogged = userDAO.getUser(principal.getName());
-        if(!accountDAO.getExistingAccount(userLogged.getId())) {
+        if (!accountDAO.getExistingAccount(userLogged.getId())) {
             model.addAttribute("test", false);
         } else {
             model.addAttribute("test", true);
@@ -65,8 +68,9 @@ public class ProfileController {
         account.setAccountId(userLogged.getId());
         account.setBalance(balance + parseInt(update));
         accountDAO.updateBalance(account);
-        modelAndView.setViewName("redirect:/profile");
+        RedirectView redirectView = new RedirectView("/profile");
+        redirectView.setExposeModelAttributes(false);
+        modelAndView.setView(redirectView);
         return modelAndView;
     }
-
 }

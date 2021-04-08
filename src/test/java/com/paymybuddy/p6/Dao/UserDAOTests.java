@@ -12,22 +12,4 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class UserDAOTests {
 
-    private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-    private DataBasePreparing dataBasePreparing;
-    private UserDAO userDAO;
-
-    @BeforeAll
-    public void setUp() {
-        userDAO = new UserDAO(dataBaseTestConfig);
-        dataBasePreparing = new DataBasePreparing();
-    }
-
-    @Test
-    public void saveUserTest() {
-        User user = new User();
-        user.setEmail("haha@gmail.com");
-        user.setPassword("plop");
-        user.setName("Bob");
-        userDAO.saveUser(user);
-    }
 }

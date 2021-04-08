@@ -30,8 +30,6 @@ public class UserDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            databaseConfig.disconnect(connection);
         }
     }
 
@@ -40,7 +38,7 @@ public class UserDAO {
         User user = null;
         try {
             connection = databaseConfig.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetUser);
+            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetUserByEmail);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -48,6 +46,27 @@ public class UserDAO {
                 user.setEmail(email);
                 user.setId(resultSet.getInt(1));
                 user.setName(resultSet.getString(3));
+            }
+            databaseConfig.closeResultSet(resultSet);
+            databaseConfig.closePreparedStatement(preparedStatement);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
+    public User getUserById(int userId) {
+        Connection connection = null;
+        User user = null;
+        try {
+            connection = databaseConfig.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetUserById);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setEmail(resultSet.getString(1));
+                user.setName(resultSet.getString(2));
             }
             databaseConfig.closeResultSet(resultSet);
             databaseConfig.closePreparedStatement(preparedStatement);

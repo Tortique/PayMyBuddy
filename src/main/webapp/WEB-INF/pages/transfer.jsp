@@ -28,9 +28,9 @@
             <div>
                 <div>
                     <label>
-                        <select>
+                        <select name="transactionFriendId">
                             <c:forEach items="${FriendsList}" var="Friend">
-                                <option value="${Friend}">
+                                <option value="${Friend.id}">
                                     ${Friend.name}
                                     ${Friend.email}
                                 </option>
@@ -40,12 +40,17 @@
                 </div>
                 <div>
                     <label>
-                        <input type="number" step="1">
+                        <input type="number" name="value" step="1">
                     </label>
                 </div>
                 <div>
                     <label>
-                        <button type="submit">Pay</button>
+                        <input type="text" name="comment"/>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <button type="submit" onsubmit="window.location.reload()">Pay</button>
                     </label>
                 </div>
             </div>
@@ -60,9 +65,9 @@
                 </tr>
                 <c:forEach items="${transactions}" var="transaction">
                     <tr>
-                        <td>${transaction.connections}</td>
-                        <td>${transaction.description}</td>
-                        <td>${transaction.amount}</td>
+                        <td>${transaction.friendName}</td>
+                        <td>${transaction.comment}</td>
+                        <td>${transaction.value} euros</td>
                     </tr>
                 </c:forEach>
             </table>
