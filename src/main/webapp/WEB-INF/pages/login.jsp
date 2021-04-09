@@ -27,9 +27,6 @@
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
         }
-        .login-form h2 {
-            margin: 0 0 15px;
-        }
         .form-control, .btn {
             min-height: 38px;
             border-radius: 2px;
@@ -56,7 +53,6 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary btn-block"/>
-                <input type="hidden" name="_csrf" value=""/>
             </div>
     </form>
 </div>
