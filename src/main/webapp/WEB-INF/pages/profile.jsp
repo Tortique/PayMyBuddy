@@ -16,7 +16,7 @@
             border-radius: 5%;
             padding-top: 10px;
             background: linear-gradient(90deg, #61b85a, #86c04b);
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
         }
 
         .page-section {
@@ -34,44 +34,6 @@
             margin-left: auto;
             padding-top: 50px;
         }
-
-        .send {
-            background-color: #f5f5f5;
-            position: relative;
-            display: block;
-            border-radius: 5%;
-            width: 75%;
-            margin-bottom: 3rem;
-        }
-
-        .head {
-            background-color: white;
-        }
-
-        .btnAdd {
-            cursor: pointer;
-            border-radius: 0.5rem;
-            border: 0.125rem solid transparent;
-        }
-
-        .btn-primary2 {
-            color: white;
-            background-color: #0275d8;
-            border-color: #0275d8;
-        }
-
-        .list {
-            background-color: #f5f5f5;
-            position: relative;
-            display: block;
-            width: 75%;
-        }
-
-        .table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
         thead {
             background-color: #5cb85c;
             color: white;
@@ -112,7 +74,6 @@
 
         }
     </style>
-</head>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
