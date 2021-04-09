@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class TransactionHistory {
-    String friendName;
-    int value;
-    String comment;
+    private String friendName;
+    private int value;
+    private String comment;
 
     public TransactionHistory(){}
 

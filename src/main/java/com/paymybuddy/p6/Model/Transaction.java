@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class Transaction {
-    int transactionUserId;
-    int transactionFriendId;
-    int value;
-    String comment;
+    private int transactionUserId;
+    private int transactionFriendId;
+    private int value;
+    private String comment;
 
     public Transaction() {
     }

@@ -18,7 +18,7 @@
             height: 30px;
             z-index: auto;
             border-radius: 5%;
-            background: linear-gradient(90deg, #fdfdfe,#86c04b);
+            background: linear-gradient(90deg, #61b85a,#86c04b);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
         .login-form form {
