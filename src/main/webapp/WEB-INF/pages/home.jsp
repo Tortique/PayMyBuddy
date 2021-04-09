@@ -35,14 +35,14 @@
         }
 
         .add {
-            background-color: aliceblue;
+            background-color: #f5f5f5;
             position: relative;
             display: block;
             border-radius: 5%;
         }
 
         .list {
-            background-color: aliceblue;
+            background-color: #f5f5f5;
             position: relative;
             display: block;
             border-radius: 5%;
@@ -97,7 +97,7 @@
                 <a class="nav-link" href="<c:url value="/transfer"/>">Transfer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/Profile"/>">Profile</a>
+                <a class="nav-link" href="<c:url value="/profile"/>">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Contact</a>
@@ -128,7 +128,7 @@
                             </label>
                         </div>
                         <div>
-                            <button class="btn btn-primary btn-x1" id="AddFriend" type="submit" onsubmit="window.location.reload()">Add</button>
+                            <button class="btn btn-primary btn-x1" type="submit" onsubmit="window.location.reload()">Add</button>
                         </div>
                     </div>
                 </form>
