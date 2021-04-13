@@ -47,8 +47,9 @@ public class FriendsDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 user = new User();
-                user.setEmail(resultSet.getString(1));
-                user.setName(resultSet.getString(2));
+                user.setId(resultSet.getInt(1));
+                user.setEmail(resultSet.getString(2));
+                user.setName(resultSet.getString(3));
                 friendsList.add(user);
             }
             databaseConfig.closeResultSet(resultSet);

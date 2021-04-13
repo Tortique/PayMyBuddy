@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select email, password, enabled from users where email=?")
-                .authoritiesByUsernameQuery("select email, 'ROLE_USER' from users where email=?");
+                .usersByUsernameQuery("select email, password, enabled from user where email=?")
+                .authoritiesByUsernameQuery("select email, 'ROLE_USER' from user where email=?");
     }
 
     @Override
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
+                .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()

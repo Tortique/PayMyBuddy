@@ -33,6 +33,27 @@ public class AccountDAO {
         }
     }
 
+    public Account getAccount(int userId) {
+        Connection connection = null;
+        Account account = null;
+        try {
+            connection = databaseConfig.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetAccount);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                account = new Account();
+                account.setAccountId(userId);
+                account.setBalance(resultSet.getInt(2));
+            }
+            databaseConfig.closeResultSet(resultSet);
+            databaseConfig.closePreparedStatement(preparedStatement);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return account;
+    }
+
     public Integer getAccountBalance(int accountId) {
         Connection connection = null;
         int account = 0;
