@@ -11,14 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class UserDAO {
+public class UserDAO implements IUserDAO {
     public DatabaseConfig databaseConfig;
 
     public UserDAO(DatabaseConfig config) {
         databaseConfig = config;
     }
 
-    public void saveUser(User user) {
+    public Result saveUser(User user) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
@@ -28,9 +28,11 @@ public class UserDAO {
             preparedStatement.setString(3, user.getName());
             preparedStatement.setInt(4, 1);
             preparedStatement.execute();
+            return Result.success;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return Result.failure;
     }
 
     public User getUser(String email) {

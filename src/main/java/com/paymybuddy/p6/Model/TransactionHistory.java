@@ -8,7 +8,8 @@ public class TransactionHistory {
     private int value;
     private String comment;
 
-    public TransactionHistory(){}
+    public TransactionHistory() {
+    }
 
     public TransactionHistory(String friendName, int value, String comment) {
         this.friendName = friendName;

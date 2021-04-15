@@ -5,9 +5,6 @@ import com.paymybuddy.p6.DAO.UserDAO;
 import com.paymybuddy.p6.Model.Friend;
 import com.paymybuddy.p6.Model.User;
 import lombok.AllArgsConstructor;
-
-import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 @AllArgsConstructor

@@ -5,6 +5,7 @@ import com.paymybuddy.p6.Database.DatabaseConfig;
 import com.paymybuddy.p6.Model.Friend;
 import com.paymybuddy.p6.Model.User;
 import org.springframework.stereotype.Repository;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 
 @Repository
-public class FriendsDAO {
+public class FriendsDAO implements IFriendsDAO {
 
     public DatabaseConfig databaseConfig;
 

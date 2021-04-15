@@ -1,48 +1,56 @@
 package com.paymybuddy.p6.config;
 
 import com.paymybuddy.p6.Database.DatabaseConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DataBaseTestConfig extends DatabaseConfig {
-    private final String databaseDriver = "com.mysql.cj.jdbc.Driver";
-    private final String databaseUrl = "jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Paris";
-    private final String username = "root";
-    private final String password = "rootroot";
+    private final Logger logger = LogManager.getLogger("DataBaseTestConfig");
     private Connection connection;
-    private Properties properties;
-
-    private Properties getProperties() {
-        if (properties == null) {
-            properties = new Properties();
-            properties.setProperty("user", username);
-            properties.setProperty("password", password);
-        }
-        return properties;
-    }
 
     public Connection connect() {
         if (connection == null) {
             try {
+                Properties properties = new Properties();
+                FileInputStream inputStream = new FileInputStream("src/test/java/com/paymybuddy/p6/config/databaseTest.properties");
+                properties.load(inputStream);
+                inputStream.close();
+                String databaseDriver =properties.getProperty("jdbc.driver");
                 Class.forName(databaseDriver);
-                connection = DriverManager.getConnection(databaseUrl, getProperties());
-            } catch (ClassNotFoundException | SQLException e) {
+                String databaseUrl = properties.getProperty("jdbc.url");
+                String username = properties.getProperty("jdbc.username");
+                String password = properties.getProperty("jdbc.password");
+                connection = DriverManager.getConnection(databaseUrl, username, password );
+            } catch (ClassNotFoundException | SQLException | IOException e) {
                 e.printStackTrace();
             }
         }
         return connection;
     }
 
-    public void disconnect() {
-        if(connection != null) {
+    public void closePreparedStatement(PreparedStatement preparedStatement) {
+        if (preparedStatement != null) {
             try {
-                connection.close();
-                connection = null;
+                preparedStatement.close();
+                logger.info("Closing Prepared Statement");
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("Error while closing prepared statement", e);
+            }
+        }
+    }
+
+    public void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+                logger.info("Closing Result Set");
+            } catch (SQLException e) {
+                logger.error("Error while closing result set", e);
             }
         }
     }
