@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -41,9 +40,9 @@ public class TransferController {
     @GetMapping("/transfer")
     public ModelAndView transfer(Principal principal, Model model) {
         User userLogged = userDAO.getUser(principal.getName());
-        ArrayList<User> FriendsList;
-        FriendsList = friendsDAO.getFriendsList(userLogged.getId());
-        model.addAttribute("FriendsList", FriendsList);
+        ArrayList<User> friendsList;
+        friendsList = friendsDAO.getFriendsList(userLogged.getId());
+        model.addAttribute("FriendsList", friendsList);
         Transaction transaction = new Transaction();
         model.addAttribute("friend", transaction);
         ArrayList<TransactionHistory> transactions = transactionDAO.getTransactionsList(userLogged.getId());

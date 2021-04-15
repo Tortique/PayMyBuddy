@@ -4,15 +4,17 @@ import lombok.Data;
 
 @Data
 public class Transaction {
-    int transactionUserId;
-    int transactionFriendId;
-    int value;
-    String comment;
+    private int transactionId;
+    private int transactionUserId;
+    private int transactionFriendId;
+    private int value;
+    private String comment;
 
     public Transaction() {
     }
 
-    public Transaction(int transactionUserId, int transactionFriendId, int value, String comment) {
+    public Transaction(int transactionId, int transactionUserId, int transactionFriendId, int value, String comment) {
+        this.transactionId = transactionId;
         this.transactionUserId = transactionUserId;
         this.transactionFriendId = transactionFriendId;
         this.value = value;

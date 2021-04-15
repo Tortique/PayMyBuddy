@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
-public class TransactionDAO {
+public class TransactionDAO implements ITransactionDAO {
     @Autowired
     UserDAO userDAO;
 
@@ -24,45 +24,51 @@ public class TransactionDAO {
 
     public DatabaseConfig databaseConfig;
 
-    public TransactionDAO(DatabaseConfig config) {databaseConfig =config;}
+    public TransactionDAO(DatabaseConfig config) {
+        databaseConfig = config;
+    }
 
-    public void saveTransactionDAO(Transaction transaction) {
+    public Result saveTransaction(Transaction transaction) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
             PreparedStatement preparedStatement = connection.prepareStatement(Constants.SaveTransaction);
-            preparedStatement.setInt(1,transaction.getTransactionUserId());
-            preparedStatement.setInt(2,transaction.getTransactionFriendId());
-            preparedStatement.setInt(3,transaction.getValue());
+            preparedStatement.setInt(1, transaction.getTransactionUserId());
+            preparedStatement.setInt(2, transaction.getTransactionFriendId());
+            preparedStatement.setInt(3, transaction.getValue());
             preparedStatement.setString(4, transaction.getComment());
             preparedStatement.execute();
             databaseConfig.closePreparedStatement(preparedStatement);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return Result.success;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
+        return Result.failure;
     }
 
-    public void payFriend(Transaction transaction, Account userAccount, Account friendAccount) {
+    public Result payFriend(Transaction transaction, Account userAccount, Account friendAccount) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
             connection.setAutoCommit(false);
-            saveTransactionDAO(transaction);
-            if(accountDAO.getExistingAccount(userAccount.getAccountId())){
+            saveTransaction(transaction);
+            if (accountDAO.getExistingAccount(userAccount.getAccountId())) {
                 accountDAO.updateBalance(userAccount);
             }
-            if(accountDAO.getExistingAccount(friendAccount.getAccountId())){
+            if (accountDAO.getExistingAccount(friendAccount.getAccountId())) {
                 accountDAO.updateBalance(friendAccount);
             }
             connection.commit();
-        } catch (SQLException throwables) {
+            return Result.success;
+        } catch (SQLException throwable) {
             try {
                 connection.rollback();
-                throwables.printStackTrace();
+                throwable.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return Result.failure;
     }
 
     public ArrayList<TransactionHistory> getTransactionsList(int userId) {
@@ -72,18 +78,17 @@ public class TransactionDAO {
         try {
             connection = databaseConfig.connect();
             PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetTransactions);
-            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 transaction = new TransactionHistory();
                 transaction.setFriendName(userDAO.getUserById(resultSet.getInt(1)).getName());
                 transaction.setValue(resultSet.getInt(2));
                 transaction.setComment(resultSet.getString(3));
                 transactions.add(transaction);
-
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return transactions;
     }

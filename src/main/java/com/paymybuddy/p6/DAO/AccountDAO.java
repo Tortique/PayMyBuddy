@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class AccountDAO {
+public class AccountDAO implements IAccountDAO {
 
     public DatabaseConfig databaseConfig;
 
@@ -19,7 +19,7 @@ public class AccountDAO {
         databaseConfig = config;
     }
 
-    public void saveAccount(Account account) {
+    public Result saveAccount(Account account) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
@@ -28,30 +28,11 @@ public class AccountDAO {
             preparedStatement.setInt(2, account.getBalance());
             preparedStatement.execute();
             databaseConfig.closePreparedStatement(preparedStatement);
+            return Result.success;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    public Account getAccount(int userId) {
-        Connection connection = null;
-        Account account = null;
-        try {
-            connection = databaseConfig.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetAccount);
-            preparedStatement.setInt(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                account = new Account();
-                account.setAccountId(userId);
-                account.setBalance(resultSet.getInt(2));
-            }
-            databaseConfig.closeResultSet(resultSet);
-            databaseConfig.closePreparedStatement(preparedStatement);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return account;
+        return Result.failure;
     }
 
     public Integer getAccountBalance(int accountId) {
@@ -80,7 +61,7 @@ public class AccountDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(Constants.GetAccount);
             preparedStatement.setInt(1, accountId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return true;
             }
             databaseConfig.closeResultSet(resultSet);
@@ -91,7 +72,7 @@ public class AccountDAO {
         return false;
     }
 
-    public void updateBalance(Account account) {
+    public Result updateBalance(Account account) {
         Connection connection = null;
         try {
             connection = databaseConfig.connect();
@@ -100,8 +81,10 @@ public class AccountDAO {
             preparedStatement.setInt(2, account.getAccountId());
             preparedStatement.execute();
             databaseConfig.closePreparedStatement(preparedStatement);
+            return Result.success;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return Result.failure;
     }
 }

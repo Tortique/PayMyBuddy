@@ -1,7 +1,7 @@
 package com.paymybuddy.p6.Controller;
 
-import com.paymybuddy.p6.DAO.AccountDAO;
-import com.paymybuddy.p6.DAO.UserDAO;
+import com.paymybuddy.p6.DAO.IAccountDAO;
+import com.paymybuddy.p6.DAO.IUserDAO;
 import com.paymybuddy.p6.Model.Account;
 import com.paymybuddy.p6.Model.User;
 import lombok.AllArgsConstructor;
@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -24,10 +22,10 @@ import static java.lang.Integer.parseInt;
 @AllArgsConstructor
 public class ProfileController {
     @Autowired
-    UserDAO userDAO;
+    IUserDAO userDAO;
 
     @Autowired
-    AccountDAO accountDAO;
+    IAccountDAO accountDAO;
 
     @GetMapping("/profile")
     public ModelAndView profile(Model model, Principal principal) {

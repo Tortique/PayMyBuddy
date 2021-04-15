@@ -4,11 +4,12 @@ import lombok.Data;
 
 @Data
 public class TransactionHistory {
-    String friendName;
-    int value;
-    String comment;
+    private String friendName;
+    private int value;
+    private String comment;
 
-    public TransactionHistory(){}
+    public TransactionHistory() {
+    }
 
     public TransactionHistory(String friendName, int value, String comment) {
         this.friendName = friendName;
