@@ -5,6 +5,29 @@
 
 This application provide to friends a way to pay them each other.
 
+### How to Deploy
+  #### Requirements: 
+   * Java 8
+   * Maven 4.0.0
+   * Spring Boot 2.3.4
+   * IntelliJ IDEA (optional)
+  #### Setup :
+   * Clone this repository
+   * Create Database and launch the scriptSQL.sql in resources directory
+   * Custom your database.properties the same directory.
+   * Execute `Maven build` to create .war file 
+   ``` sh 
+    $ mvn clean install
+   ```
+      
+   * Run the `command` :
+   ```
+   java -jar p6-0.0.1-SNAPSHOT.war
+   ```
+   (optional : with IDE, just run the application)
+   * Browser to http://locahost:8000
+      
+
 ### First step was to build diagrams :
 
 <img src ="https://user-images.githubusercontent.com/11331740/114840297-f68e1180-9dd6-11eb-9560-5143f752b2b6.png" width="250" height="250">
