@@ -22,7 +22,7 @@ This application provide to friends a way to pay them each other.
       
    * Run the `command` :
    ```
-   java -jar p6-0.0.1-SNAPSHOT.war
+   java -jar target/p6-0.0.1-SNAPSHOT.war
    ```
    (optional : with IDE, just run the application)
    * Browser to http://locahost:8000
